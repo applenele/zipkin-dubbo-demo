@@ -147,7 +147,7 @@ dubbo:
     name: service-user
   registry:
     protocol: zookeeper
-    address: me.com:2181
+    address: localhost:2181
   scan:
     base-packages: com.lenny.sample.user.service
 
@@ -163,12 +163,12 @@ spring:
       type: kafka #向kafka发送trace信息
   #kafka配置
   kafka:
-    bootstrap-servers: PLAINTEXT://me.com:19092
+    bootstrap-servers: PLAINTEXT://localhost:19092
   application:
     name: service-user
 ```
 
-此时访问service-order的获取订单详情的接口 http://me.com:8081/order/1，此时在zipkin中会出现一条trcace记录。和清楚地看出是访问/order/1产生的trace信息。
+此时访问service-order的获取订单详情的接口 http://localhost:8081/order/1，此时在zipkin中会出现一条trcace记录。和清楚地看出是访问/order/1产生的trace信息。
 
 ![springmvczipkin](./images/WX20181224-214417@2x.png)
 
@@ -211,7 +211,7 @@ dubbo:
     filter: 'tracing'
 ```
 
-重启service-order和service-user，再次访问http://me.com:8081/order/1
+重启service-order和service-user，再次访问http://localhost:8081/order/1
 
 发现新的请求调用链包含service-order和servicice-user。点击调用链，显示调用详情。
 
