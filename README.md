@@ -34,8 +34,6 @@ Brave 是用来装备 Java 程序的类库，提供了面向 Standard Servlet、
 
 
 
-
-
 ## Zipkin在dubbo中的使用
 
 dubbo作为一个rpc框架广泛应用于分布式应用中，随着业务的越来越复杂，一次请求的调用链也会变得繁杂，如何清晰的展示一次请求的调用链？结合Zipkin，可以方便的展示dubbo服务调用关系链。
@@ -43,6 +41,8 @@ dubbo作为一个rpc框架广泛应用于分布式应用中，随着业务的越
 下面通过一个实际的例子展示dubbo应用如何使用zipkin追踪请求的调用链。Brave使用起来不是很方便，编码量有些大，而利用Spring Cloud的sleuth组件可以很方便地使用brave，将trace数据通过http，Kafka或rabbitmq发送给zipkin。所以在本例中将采用将trace数据通过kafka发给zipkin。
 
 为了快速搭建zipkin的环境，本例采用docker的形式搭建zipkin和kafka。
+
+### zipkin 环境搭建
 
 docker-compose.yml 内容如下：
 
@@ -97,13 +97,17 @@ services:
 
 ![zipkin](./images/WX20181224-180006.png)
 
+### 搭建一个dubbo分布式应用
+
+
+
 首先搭建一个dubbo的项目。
 
 ![dubbo项目](./images/WX20181224-175644.png)
 
-service-order 依赖 service-user项目。当查询订单详情的时候order服务会去调用user模块获取用户详情。
+service-order 依赖 service-user项目。当查询订单详情的时候order服务会去调用user模块获取用户详情。service-user-dubbo-api是user服务定义模块。
 
-#####  spring mvc 接入zipkin
+### spring mvc 接入zipkin
 
 在service-order和service-user中添加maven引用。
 
@@ -178,7 +182,7 @@ TraceWebServletAutoConfiguration 会在spring boot项目启动的时候，自动
 
  在doFilter的时候将访问信息发送给zipkin。 详细代码不做解释了。
 
-##### dubbo 接入到zipkin
+### dubbo 接入到zipkin
 
 上面的访问订单详情的接口通过dubbo访问了user模块的获取用户信息的远程接口，但是该访问并没有记录到zipkin上。想要让dubbo的访问记录也发送到zipkin上，形成完整的调用链，该怎么做呢？
 
@@ -243,5 +247,3 @@ dubbo:
 2. zipkin环境搭建
 3. zipkin在spring mvc的中使用与基本原理
 4. zipkin在dubbo中的使用以及基本原理
-
-z
