@@ -1,0 +1,32 @@
+dubbo:
+  protocol:
+    port: 20881
+    name: dubbo
+    id: dubbo
+  application:
+    name: service-user
+  registry:
+    protocol: zookeeper
+    address: me.com:2181
+  scan:
+    base-packages: com.lenny.sample.user.service
+#  consumer:
+#    filter: 'tracing'
+  provider:
+    filter: 'tracing'
+
+
+spring:
+  # 启用sleuth
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1
+  zipkin:
+    sender:
+      type: kafka #向kafka发送trace信息
+  #kafka配置
+  kafka:
+    bootstrap-servers: PLAINTEXT://me.com:19092
+  application:
+    name: service-user

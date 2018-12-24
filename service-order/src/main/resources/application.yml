@@ -1,0 +1,32 @@
+dubbo:
+  protocol:
+    port: 20882
+    name: dubbo
+    id: dubbo
+  application:
+    name: service-order
+  registry:
+    protocol: zookeeper
+    address: me.com:2181
+  scan:
+    base-packages: com.lenny.sample.order.service
+  consumer:
+    filter: 'tracing'
+#  provider:
+#    filter: 'tracing'
+
+server:
+  port: 8081
+
+spring:
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1
+  zipkin:
+    sender:
+      type: kafka
+  kafka:
+    bootstrap-servers: PLAINTEXT://me.com:19092
+  application:
+    name: service-order
