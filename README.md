@@ -235,7 +235,7 @@ dubbo:
     filter: 'tracing'
 ```
 
-当请求到达消费端和服务提供端的时候都会想zipkin发送trace信息。
+当请求到达消费端和服务提供端的时候都会向zipkin发送trace信息。
 
 
 
