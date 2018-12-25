@@ -247,3 +247,8 @@ dubbo:
 2. zipkin环境搭建
 3. zipkin在spring mvc的中使用与基本原理
 4. zipkin在dubbo中的使用以及基本原理
+
+## 参考文章
+
+https://zhuanlan.zhihu.com/p/20941369
+
